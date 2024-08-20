@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <math.h>
 
-const int INF_SOLUTIONS = -10;
-#define abs(a) (a > 0)? a:(-a)
+const int INF_SOLUTIONS = -1;
+#define abs(a) ((a > 0)? a:(-a))
 
 int Solve_Quad(double a, double b, double c, double *x1, double *x2)
 {
@@ -55,7 +55,6 @@ int main()
     }
     return 0;
 }
-
 
 
 
