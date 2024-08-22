@@ -22,24 +22,8 @@ bool Is_Zero(double a);
 */
 bool Are_Equal(double a, double b);
 
-bool Is_Zero(double a)
-{
-    return (fabs(a) < DOUBLE_DEVIATION);
-}
+double min(double a, double b);
 
-bool Are_Equal(double a, double b)
-{
-    return Is_Zero(a-b);
-}
-
-double min(double a, double b)
-{
-    return ((a < b)? a : b);
-}
-
-double max(double a, double b)
-{
-    return ((a > b)? a : b);
-}
+double max(double a, double b);
 
 
