@@ -6,29 +6,32 @@
 #include "define_equation_and_solve.h"
 #include "Tester.h"
 
+
 int Run_All_Tests()
 {
-    Coefficients coeff = {0, 0, 0};
-    Solution ethalon = {0, 0, UNDEFINED};
+    const int n_of_tests = 12;
+    Test_Conditions test_set[n_of_tests] = {{{   2,    3,       -5}, {-2.5, 1, TWO_SOLUTIONS}},
+                                            {{   0,    0,        0}, {   0, 0, INF_SOLUTIONS}},
+                                            {{   0,    0,        5}, {   0, 0,  NO_SOLUTIONS}},
+                                            {{   3,    3,        3}, {   0, 0,  NO_SOLUTIONS}},
+                                            {{   0,    3,        6}, {  -2, 0,  ONE_SOLUTION}},
+                                            {{  -2,    3,       -1}, { 0.5, 1, TWO_SOLUTIONS}},
+                                            {{   5,    0,       -5}, {  -1, 1, TWO_SOLUTIONS}},
+                                            {{   1,    4,        4}, {  -2, 0,  ONE_SOLUTION}},
+                                            {{   4,    4,       -8}, {  -2, 1, TWO_SOLUTIONS}},
+                                            {{  -1,    5,     -100}, {   0, 0,  NO_SOLUTIONS}},
+                                            {{  -1,    5, INFINITY}, {   0, 0,   INPUT_ERROR}},
+                                            {{1e30, 2e30,     1e30}, {  -1, 0,  ONE_SOLUTION}}};
 
-    FILE* test_set = fopen("Tester_data.txt", "r");
-    assert(test_set != NULL); //"Could not open file"
-
-    int n_of_tests;
-    assert(fscanf(test_set, "%d", &n_of_tests)); //"Invalid number of tests"
-
-    int i = 1;
     int succeded = 0, failed = 0;
-    for (; i <= n_of_tests; i++)
+    for (int i = 1; i <= n_of_tests; i++)
     {
-        if (!Get_Values(i, &coeff, &ethalon, test_set))
-            return 1;
-
-        if(!Run_Test(i, coeff, ethalon))
+        if(!Run_Test(i, test_set[i-1].coeff, test_set[i-1].solt_expected))
         {
             failed++;
             continue;
         }
+
         succeded++;
     }
 
@@ -38,7 +41,6 @@ int Run_All_Tests()
     "Succeded: %d, Failed: %d\n\n",
     (succeded + failed), n_of_tests, succeded, failed
     );
-    fclose(test_set);
 
     return 0;
 }
@@ -56,7 +58,7 @@ bool Run_Test(int test_i, Coefficients coeff, Solution ethalon)
     {
         printf
         (
-        "\nTest №%d failed!\n"
+        "\nTest %d failed!\n"
         "a = %lg, b = %lg, c = %lg -> x1 = %lg, x2 = %lg, roots_number = %d\n"
         "Expected: x1 = %lg, x2 = %lg, roots_number = %d\n",
         test_i, coeff.a, coeff.b, coeff.c, solt.x1, solt.x2, solt.n_roots,
@@ -68,14 +70,3 @@ bool Run_Test(int test_i, Coefficients coeff, Solution ethalon)
     return 1;
 }
 
-bool Get_Values(int i, Coefficients *coeff, Solution *ethalon, FILE* test_set)
-{
-
-    if (fscanf(test_set, "%lg%lg%lg%lg%lg%d", &(coeff->a), &(coeff->b), &(coeff->c), &(ethalon->x1), &(ethalon->x2), &(ethalon->n_roots)) != 6)
-    {
-        printf("\nReading error in test %d\n", &i);
-        return 0;
-    }
-
-    return 1;
-}

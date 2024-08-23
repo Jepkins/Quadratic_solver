@@ -9,6 +9,7 @@ enum N_OF_SOLUTIONS {
     ONE_SOLUTION  = 1,
     TWO_SOLUTIONS = 2,
     INF_SOLUTIONS = -1,
+    INPUT_ERROR = -2,
     UNDEFINED = -10
 };
 struct Coefficients {
@@ -22,7 +23,7 @@ struct Solution {
 
 struct Test_Conditions {
     Coefficients coeff;
-    Solution expected;
+    Solution solt_expected;
 };
 
 

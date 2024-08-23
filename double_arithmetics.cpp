@@ -1,6 +1,9 @@
 #include <math.h>
 #include "double_arithmetics.h"
 
+/// Maximum difference between floating point values for them to be considered equal
+static double DOUBLE_DEVIATION = 1e-20;
+
 bool Is_Zero(double a)
 {
     return (fabs(a) < DOUBLE_DEVIATION);

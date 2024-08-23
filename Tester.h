@@ -20,12 +20,6 @@ Program displays results of each test and outputs numbers of succesful and faile
 */
 bool Run_Test(int test_i, Coefficients coeff, Solution ethalon);
 
-/// Reads current test conditions from the file
-/**
-
-*/
-bool Get_Values(int i, Coefficients *coeff, Solution *ethalon, FILE* test_set);
-
 
 /// Initializes tests and shows the results
 int Run_All_Tests();
